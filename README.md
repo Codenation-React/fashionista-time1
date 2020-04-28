@@ -1,9 +1,19 @@
-# fashionista-time1
-Projeto final do time 1 no AceleraDev
+# Fashionista
+
+## Description
+Projeto final do time 1 do AceleraDev React
+
+## How to run
+1. clone the repository
+2. install the dependencies running `yarn`
+3. run `yarn start` to serve the app at http://localhost:3000
 
 ## Stack
-- React
-- Redux
-- Typescript (?)
-- React Hook Form
+- react
+- redux
+- react-hook-form
 - react-router-dom
+- typescript (?)
+
+## Tests
+- run `yarn test`
