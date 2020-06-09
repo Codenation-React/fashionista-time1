@@ -2,6 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import saleCartReducer from './reducers/saleCart';
+import Navbar from './components/Navbar'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,12 +12,14 @@ import {
 
 import ProductList from './pages/ProductList';
 
+
 let store = createStore(combineReducers({saleCart: saleCartReducer}));
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
         <div className='App'>
+        <Navbar />
         <Switch>
           <Route path='/'>
             <ProductList />
