@@ -3,9 +3,11 @@ import Logo from '../../assets/logo-fashionista.svg';
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
-
+import Modal from '../UI/Modal'
+import { useStore } from '../../store/store';
 
 const Header  = styled.header`
+    height: 7rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +52,7 @@ const TotalItems = styled.div`
     background-color: red;
     width: 25px;
     height: auto;
-    font-size: 0.8rem;
+    font-size: 1.3rem;
     color: white;
     font-weight: bold;
     display: flex;
@@ -63,6 +65,12 @@ const mockedData = {
 }
 
 const Navbar = () => {
+    const dispatch = useStore()[1];
+
+    const showModalHandler = type => {
+        dispatch('TOGGLE_SHOW')
+    }
+
     return (
         <Header>
             <Content>
@@ -72,13 +80,13 @@ const Navbar = () => {
                 <Nav>
                     <Navlista>
                         <ListItem>
-                            <Link href="/search">
-                                <SearchIcon/>
+                            <Link onClick={() => showModalHandler()}>
+                                <SearchIcon style={{ fontSize: 25 }}/>
                             </Link>
                         </ListItem>
                         <ListItem>
-                            <Link href="/cart">
-                                <LocalMallOutlinedIcon/>
+                            <Link onClick={() => showModalHandler()}>
+                                <LocalMallOutlinedIcon style={{ fontSize: 25 }}/>
                                 <TotalItems>
                                     { mockedData.totalCart > 99 ? "+99" : mockedData.totalCart }
                                 </TotalItems>
@@ -86,7 +94,8 @@ const Navbar = () => {
                         </ListItem>
                     </Navlista>
                 </Nav>
-            </Content>  
+            </Content>
+            <Modal/>
         </Header>
     )
 }

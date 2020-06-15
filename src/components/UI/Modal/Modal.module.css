@@ -1,0 +1,26 @@
+.Modal {
+    z-index: 101;
+    position:fixed;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fafafa;
+    transition: transform 0.5s ease-in-out;
+}
+
+.Open {
+    transform: translateX(0);
+}
+
+.Close{
+    transform: translateX(100%);
+}
+
+@media (min-width: 1250px){
+    .Modal{
+        width: 21vw;
+        right: 0;
+        left: auto;
+    }
+}

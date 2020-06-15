@@ -19,12 +19,12 @@ const App = styled.div`
 `;
 
 let store = createStore(combineReducers({saleCart: saleCartReducer}));
-const App = () => {
+const Container = () => {
   return (
     <Provider store={store}>
       <Router>
+      <Navbar />
         <App className='App'>
-          <Navbar />
           <Switch>
             <Route path='/'>
               <ProductList />
