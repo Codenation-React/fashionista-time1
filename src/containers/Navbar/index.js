@@ -1,9 +1,9 @@
 import React from 'react';
-import Logo from '../../assets/logo-fashionista.svg';
+import Logo from '../../assets/myLogo3.png';
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
-import Modal from '../UI/Modal'
+import Modal from '../../components/UI/Modal'
 import { useStore } from '../../store/store';
 
 const Header  = styled.header`
@@ -18,6 +18,7 @@ const Content = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 `
 const Navlista = styled.ul`
     display: flex;
@@ -27,6 +28,7 @@ const Navlista = styled.ul`
 
 `
 const Nav = styled.nav`
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,10 +37,18 @@ const ListItem = styled.li`
     list-style: none;
     margin: 10px 20px;
 `
-const ImgDiv = styled.div`
-     display: flex;
+const ImgDiv = styled.a`
+    display: flex;
+    width: 50%;
+    height: 45px;
     align-items: center;
     justify-content: center;
+    & > img {
+        @media(min-width: 480px){
+            width: 100px;
+        }
+        height: 50px;
+    }
 `
 
 const Link = styled.a`
@@ -50,9 +60,9 @@ const Link = styled.a`
 const TotalItems = styled.div`
     border-radius: 50%;
     background-color: red;
-    width: 25px;
+    width: 35px;
     height: auto;
-    font-size: 1.3rem;
+    font-size: 18px;
     color: white;
     font-weight: bold;
     display: flex;
@@ -68,25 +78,25 @@ const Navbar = () => {
     const dispatch = useStore()[1];
 
     const showModalHandler = type => {
-        dispatch('TOGGLE_SHOW')
+        dispatch('TOGGLE_SHOW', type)
     }
 
     return (
         <Header>
             <Content>
-                <ImgDiv>
+                <ImgDiv href="/">
                     <img src={Logo} alt="Logo Fashionista"/>
                 </ImgDiv>
                 <Nav>
                     <Navlista>
                         <ListItem>
-                            <Link onClick={() => showModalHandler()}>
-                                <SearchIcon style={{ fontSize: 25 }}/>
+                            <Link onClick={() => showModalHandler('search')}>
+                                <SearchIcon style={{ fontSize: 35 }}/>
                             </Link>
                         </ListItem>
                         <ListItem>
-                            <Link onClick={() => showModalHandler()}>
-                                <LocalMallOutlinedIcon style={{ fontSize: 25 }}/>
+                            <Link onClick={() => showModalHandler('cart')}>
+                                <LocalMallOutlinedIcon style={{ fontSize: 35 }}/>
                                 <TotalItems>
                                     { mockedData.totalCart > 99 ? "+99" : mockedData.totalCart }
                                 </TotalItems>

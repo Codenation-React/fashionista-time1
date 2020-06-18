@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ConfigureModalHandler from './store/modalHandler-store';
+import ConfigureProducts from './store/products-store';
 
+ConfigureProducts();
 ConfigureModalHandler();
 ReactDOM.render(
   <React.StrictMode>

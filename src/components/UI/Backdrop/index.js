@@ -11,11 +11,6 @@ const StyledBackdrop = styled.div`
     height: 100vh;
     background: rgba(0, 0, 0, 0.3);
 `
-  
-
-
-
-
 
 const Backdrop = (props) => {
     return (

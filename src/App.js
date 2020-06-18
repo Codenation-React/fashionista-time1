@@ -4,7 +4,7 @@ import { createStore, combineReducers } from 'redux';
 import styled from 'styled-components';
 
 import saleCartReducer from './reducers/saleCart';
-import Navbar from './components/Navbar'
+import Navbar from './containers/Navbar'
 
 import {
   BrowserRouter as Router,
