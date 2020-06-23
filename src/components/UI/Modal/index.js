@@ -5,6 +5,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styled from 'styled-components'
 import { useStore } from '../../../store/store';
 import Search from '../../../containers/Search/'
+import Cart from '../../../containers/Cart';
 
 const ModalTopBar = styled.div`
     height: 5.9rem;
@@ -54,7 +55,7 @@ const Modal = props => {
                     { state.Navtype === 'search' ? "Buscando Produtos" : `Sacola (${5})`}
                     </Content>
                 </ModalTopBar>
-                { state.Navtype === 'search' ? <Search/> : null}
+                { state.Navtype === 'search' ? <Search/> : <Cart />}
             </div>
         </>
 
