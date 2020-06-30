@@ -8,7 +8,7 @@ import Search from '../../../containers/Search/'
 import Cart from '../../../containers/Cart';
 
 const ModalTopBar = styled.div`
-    height: 7rem;
+    height: 5.9rem;
     background-color: white;
     display: flex;
     flex-direction: row;

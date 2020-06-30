@@ -60,13 +60,10 @@ const ProductImageDiv = styled.div`
 `
 
 const ProductImage = styled.img`
-    width: 100%;;
+    width: 200px;
     height: 100%;
     background-size: cover;
     background-repeat: no-repeat;
-    @media (min-width: 480px){
-        width: 200px
-    }
 `
 
 const ProductPrice = styled.div`
@@ -84,12 +81,12 @@ const ProductPrice = styled.div`
         }
     }
     & > .price{
-        font-size:1.6rem;
+        font-size:20px;
         font-weight:bold;
         white-space: nowrap;
     }
     & > .installments {
-        font-size: 1.4rem;
+        font-size: 18px;
         font-weight: bold;
         white-space: nowrap;
         color: #aaa
@@ -97,7 +94,7 @@ const ProductPrice = styled.div`
 `
 const StyledName = styled.div`
 
-    font-size: 1.5rem;
+    font-size: 14px;
     font-weight: bold;
     width: 45%;
     @media (min-width: 1280px){
@@ -142,7 +139,7 @@ const Search = () => {
             setProducts([]);
         }
         console.log(search);
-    }, [search, state.products])
+    }, [search])
 
     return (
         <React.Fragment>
