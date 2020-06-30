@@ -21,10 +21,11 @@ const Content = styled.div`
     align-items: center;
 `
 const Navlista = styled.ul`
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
 
 `
 const Nav = styled.nav`
@@ -35,14 +36,14 @@ const Nav = styled.nav`
 `
 const ListItem = styled.li`
     list-style: none;
-    margin: 10px 20px;
+    margin: 10px 10px;
 `
-const ImgDiv = styled.a`
+const ImgLink = styled.a`
     display: flex;
     width: 50%;
     height: 45px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     & > img {
         @media(min-width: 480px){
             width: 100px;
@@ -71,7 +72,7 @@ const TotalItems = styled.div`
 
 `
 const mockedData = {
-    totalCart: 80
+    totalCart: 5
 }
 
 const Navbar = () => {
@@ -84,9 +85,9 @@ const Navbar = () => {
     return (
         <Header>
             <Content>
-                <ImgDiv href="/">
+                <ImgLink href="/">
                     <img src={Logo} alt="Logo Fashionista"/>
-                </ImgDiv>
+                </ImgLink>
                 <Nav>
                     <Navlista>
                         <ListItem>
