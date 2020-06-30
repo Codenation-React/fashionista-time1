@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-import ProductItem from '../components/ProductItem';
+import ProductItem from '../components/ProductItem/index';
 
 const ListContainer = styled.div`
   display: flex;
@@ -18,7 +18,6 @@ const ProductList = styled.section`
 
 const Container = () => {
   const [catalog, setCatalog] = useState([]);
-
   const fetchCatalog = useCallback(() => {
     const catalogUrl = 'https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog';
     axios.get(catalogUrl)
@@ -38,11 +37,11 @@ const Container = () => {
         <ProductItem product={product} />
       ))
   ), [catalog]);
-
+ console.log(products)
   return (
     <ListContainer>
       <ProductList>
-        {products}
+        { products }
       </ProductList>
     </ListContainer>
   );

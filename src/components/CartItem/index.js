@@ -8,13 +8,13 @@ const Content = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 150px;
+    height: 280px;
     border-bottom: 1px solid #d0d0d0;
     padding: 15px;
 `
 
 const ItemImage = styled.figure`
-    width: 25%;
+    width: 39%;
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -23,7 +23,14 @@ const ItemImage = styled.figure`
 
     img {
         height: 85%;
+        @media(min-width: 780px){
+            width: 200px;
+        }
     }
+    @media(min-width: 780px){
+        align-items: center;
+    }
+
 `
 
 const RemoveItemBtn = styled.a`
@@ -36,7 +43,7 @@ const RemoveItemBtn = styled.a`
 `
 
 const ItemInfo = styled.div`
-    width: 75%;
+    width: 60%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -103,10 +110,10 @@ const CartItem = ({ style }) => {
                 <RemoveItemBtn onClick={removeItem}>Remover Item</RemoveItemBtn>
             </ItemImage>
             <ItemInfo>
-                <ItemInfoText fontWeight="bold" fontSize="medium">{data.name}</ItemInfoText>
-                <ItemInfoText textAlign="right" fontWeight="bold" fontSize="medium">{data.actual_price}</ItemInfoText>
+                <ItemInfoText fontWeight="bold" fontSize="big">{data.name}</ItemInfoText>
+                <ItemInfoText textAlign="right" fontWeight="bold" fontSize="big">{data.actual_price}</ItemInfoText>
                 <ItemInfoText disabled="true">Tam.: P</ItemInfoText> 
-                <ItemInfoText textAlign="right" disabled="true">{data.installments}</ItemInfoText>
+                <ItemInfoText textAlign="right" disabled="true" fontSize="medium">{data.installments}</ItemInfoText>
                 <ItemInfoGroup>
                     <CartButton onClick={decrementQty}>-</CartButton>
                     <ItemInfoText textAlign="center" fontSize="big">{data.quantity}</ItemInfoText>
