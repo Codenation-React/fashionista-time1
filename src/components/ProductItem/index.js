@@ -4,10 +4,14 @@ import styled from 'styled-components';
 const ListItem = styled.li`
   list-style-type: none;
   margin: 15px;
-  width: 470px;
+  width: 235px;
 `
 const ImgItem = styled.div`
   position: relative;
+  & > img {
+    max-width: 100%;
+    height: auto;
+  }
 `
 const DiscountItem = styled.span`
   position: absolute;
