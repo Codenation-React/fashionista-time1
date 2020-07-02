@@ -2,6 +2,8 @@ import React from "react";
 import styled from 'styled-components';
 import imageNotFound from '../../assets/notfound.png';
 
+import notFoundLogo from '../../assets/notfound.png';
+
 const ListItem = styled.li`
   list-style-type: none;
   margin: 15px;
@@ -54,27 +56,15 @@ const PriceItemOld = styled.a`
   text-decoration: solid line-through #808080;
 `
 
-/*
-const product = {
-  name: "VESTIDO TRANSPASSE BOW",
-  image: "https://viniciusvinna.netlify.app/assets/api-fashionista/20002605_615_catalog_1.jpg",
-  actual_price: "R$ 175,90",
-  on_sale: true,
-  discount_percentage: "12%",
-  regular_price: "R$ 199,90"
-} 
-*/
-
 const ProductItem = ({ product }) => {
-//const ProductItem = () => {
-
   const { name, image, actual_price, on_sale, discount_percentage, regular_price } = product;
+
+  const imageItem = image || notFoundLogo;
 
   return (
     <ListItem>
       <ImgItem>
         <img src={image ? image : imageNotFound} alt={name} />
-
         {on_sale &&
           (<DiscountItem> -{discount_percentage} OFF</DiscountItem>)}
       </ImgItem>
