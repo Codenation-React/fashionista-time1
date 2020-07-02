@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import imageNotFound from '../../assets/notfound.png';
 
 const ListItem = styled.li`
   list-style-type: none;
@@ -72,7 +73,7 @@ const ProductItem = ({ product }) => {
   return (
     <ListItem>
       <ImgItem>
-        <img src={image} alt={name} />
+        <img src={image ? image : imageNotFound} alt={name} />
 
         {on_sale &&
           (<DiscountItem> -{discount_percentage} OFF</DiscountItem>)}

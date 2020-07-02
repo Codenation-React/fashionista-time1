@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import ProductItem from '../components/ProductItem';
-import mockData from '../store/mocked-data.json';
 
 const ListContainer = styled.div`
   display: flex;
@@ -20,10 +19,16 @@ const Container = () => {
   const [catalog, setCatalog] = useState([]);
   const fetchCatalog = useCallback(() => {
     const catalogUrl = 'https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog';
+    const catalogUrl2 = 'https://undefined.netlify.app/api/catalog'
     axios.get(catalogUrl)
       .then(response => setCatalog(response.data))
       .catch(error => {
-        setCatalog(mockData);
+        // setCatalog(mockData);
+        axios.get(catalogUrl2)
+          .then(response => setCatalog(response.data))
+          .catch(error => {
+            console.log(`There was an error during the fetch: ${error}`);
+          })
         console.log(`There was an error during the fetch: ${error}`);
       });
   }, []);

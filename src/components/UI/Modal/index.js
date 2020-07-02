@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import { useStore } from '../../../store/store';
 import Search from '../../../containers/Search/'
 import Cart from '../../../containers/Cart';
+import { useSelector, useDispatch } from 'react-redux';
+import * as action from '../../../actions/modalHandler';
 
 const ModalTopBar = styled.div`
     height: 7rem;
@@ -31,6 +33,8 @@ const Content = styled.div`
 
 const Modal = props => {
     const [state, dispatch] = useStore(false);
+    // const state = useSelector(state => state.modalHandler);
+    // const dispatch = useDispatch();
     const [shouldShow, setShouldShow] = useState(false);
 
     useEffect(() => {
@@ -42,7 +46,8 @@ const Modal = props => {
     shouldShow ? ModalClasses.push(classes.Open) : ModalClasses.push(classes.Close)
 
     const closeModal = () => {
-        dispatch('TOGGLE_SHOW', state.Navtype)
+        dispatch('TOGGLE_SHOW', state.Navtype);
+        // dispatch(action.toggleModal(state.Navtype))
     }
 
     return (

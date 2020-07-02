@@ -1,10 +1,12 @@
 import React from 'react';
-import Logo from '../../assets/myLogo3.png';
+import Logo from '../../assets/clothes.svg';
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
 import Modal from '../../components/UI/Modal'
 import { useStore } from '../../store/store';
+// import { useDispatch } from 'react-redux';
+// import * as action from '../../actions/modalHandler';
 
 const Header  = styled.header`
     height: 7rem;
@@ -77,8 +79,13 @@ const mockedData = {
 
 const Navbar = () => {
     const dispatch = useStore()[1];
+    // com redux
+    // const dispatch = useDispatch()
 
     const showModalHandler = type => {
+        // com redux
+        // dispatch(action.toggleModal(type));
+        // com custom hook
         dispatch('TOGGLE_SHOW', type)
     }
 

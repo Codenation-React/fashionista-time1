@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components'
+import * as action from '../../actions/saleCart';
 import { useStore } from '../../store/store';
 import { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_ITEM } from '../../store/products-store';
-
+import {  useDispatch, useSelector } from 'react-redux';
 const Content = styled.div`
     width: 100%;
     display: flex;
@@ -88,39 +89,55 @@ const CartButton = styled.button`
 `
 
 const CartItem = ({ style }) => {
+    //com redux
+    // const cartItems = useSelector( state => {
+    //     return state.saleCart.cartItems
+    // })
+    // const dispatch = useDispatch();
     const [{cartItems}, dispatch] = useStore(false);
-    
-    const data = cartItems.filter(item => item.style === style)[0];
+    const data = cartItems && cartItems.filter(item => item.style === style)[0];
 
     const incrementQty = () => {
-        dispatch(INCREMENT_QUANTITY, style);
+        dispatch("INCREMENT_QUANTITY", style)
+        //com redux
+        // dispatch(action.incrementProductQuantity(style));
     }
 
     const decrementQty = () => {
-        dispatch(DECREMENT_QUANTITY, style);
+        if(data.quantity <= 1 ){
+            //com redux
+            // return dispatch(action.removeProduct(style))
+            return dispatch("REMOVE_ITEM", style)
+        }
+            //com redux
+            // dispatch(action.decrementProductQuantity(style));
+            dispatch("DECREMENT_QUANTITY", style)
     }
 
     const removeItem = () => {
-        dispatch(REMOVE_ITEM, style);
+        //com redux
+        // return dispatch(action.removeProduct(style))
+        dispatch("REMOVE_ITEM", style)
     }
+
     return (
-        <Content>
-            <ItemImage>
-                <img  src={data.image} alt="Produto"></img>
-                <RemoveItemBtn onClick={removeItem}>Remover Item</RemoveItemBtn>
-            </ItemImage>
-            <ItemInfo>
-                <ItemInfoText fontWeight="bold" fontSize="big">{data.name}</ItemInfoText>
-                <ItemInfoText textAlign="right" fontWeight="bold" fontSize="big">{data.actual_price}</ItemInfoText>
-                <ItemInfoText disabled="true">Tam.: P</ItemInfoText> 
-                <ItemInfoText textAlign="right" disabled="true" fontSize="medium">{data.installments}</ItemInfoText>
-                <ItemInfoGroup>
-                    <CartButton onClick={decrementQty}>-</CartButton>
-                    <ItemInfoText textAlign="center" fontSize="big">{data.quantity}</ItemInfoText>
-                    <CartButton onClick={incrementQty}>+</CartButton>
-                </ItemInfoGroup>
-            </ItemInfo>
-        </Content>
+           <Content>
+                <ItemImage>
+                    <img  src={data.image} alt="Produto"></img>
+                    <RemoveItemBtn onClick={removeItem}>Remover Item</RemoveItemBtn>
+                </ItemImage>
+                <ItemInfo>
+                    <ItemInfoText fontWeight="bold" fontSize="big">{data.name}</ItemInfoText>
+                    <ItemInfoText textAlign="right" fontWeight="bold" fontSize="big">{data.actual_price}</ItemInfoText>
+                    <ItemInfoText disabled="true">Tam.: P</ItemInfoText> 
+                    <ItemInfoText textAlign="right" disabled="true" fontSize="medium">{data.installments}</ItemInfoText>
+                    <ItemInfoGroup>
+                        <CartButton onClick={decrementQty}>-</CartButton>
+                        <ItemInfoText textAlign="center" fontSize="big">{data.quantity}</ItemInfoText>
+                        <CartButton onClick={incrementQty}>+</CartButton>
+                    </ItemInfoGroup>
+                </ItemInfo>
+            </Content>
     )
 }
 
