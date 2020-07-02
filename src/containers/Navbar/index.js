@@ -72,12 +72,9 @@ const TotalItems = styled.div`
     align-items: center;
 
 `
-const mockedData = {
-    totalCart: 5
-}
 
 const Navbar = () => {
-    const dispatch = useStore()[1];
+    const [state, dispatch] = useStore();
     // com redux
     // const dispatch = useDispatch()
 
@@ -88,6 +85,8 @@ const Navbar = () => {
         dispatch('TOGGLE_SHOW', type)
     }
 
+    const totalCart = state.cartItems.length
+    
     return (
         <Header>
             <Content>
@@ -105,7 +104,7 @@ const Navbar = () => {
                             <Link onClick={() => showModalHandler('cart')}>
                                 <LocalMallOutlinedIcon style={{ fontSize: 35 }}/>
                                 <TotalItems>
-                                    { mockedData.totalCart > 99 ? "+99" : mockedData.totalCart }
+                                    { totalCart > 99 ? "+99" : totalCart }
                                 </TotalItems>
                             </Link>
                         </ListItem>

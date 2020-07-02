@@ -49,7 +49,7 @@ const Modal = props => {
         dispatch('TOGGLE_SHOW', state.Navtype);
         // dispatch(action.toggleModal(state.Navtype))
     }
-
+    const totalCart = state.cartItems.length
     return (
         <>
             <Backdrop show={shouldShow}/>
@@ -57,7 +57,7 @@ const Modal = props => {
                 <ModalTopBar >
                     <ArrowBackIcon style={{fontSize: 30, cursor: 'pointer' }} onClick={() => closeModal()}/>
                     <Content>
-                    { state.Navtype === 'search' ? "Buscando Produtos" : `Sacola (${5})`}
+                    { state.Navtype === 'search' ? "Buscando Produtos" : `Sacola (${totalCart})`}
                     </Content>
                 </ModalTopBar>
                 { state.Navtype === 'search' ? <Search/> : <Cart />}

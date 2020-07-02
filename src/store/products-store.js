@@ -6,8 +6,8 @@ export const REMOVE_ITEM = "REMOVE_ITEM";
 
 const configureStore = () => {
     const actions = {
-        INCREMENT_QUANTITY: (state, style) => {
-            const cartIndex = state.cartItems.findIndex(item => item.style === style);
+        INCREMENT_QUANTITY: (state, code_color) => {
+            const cartIndex = state.cartItems.findIndex(item => item.code_color === code_color);
             const updatedCart= {
                 ...state.cartItems,
                 [cartIndex]:{
@@ -20,8 +20,8 @@ const configureStore = () => {
               cartItems: updatedData
             })
         },
-        DECREMENT_QUANTITY: (state, style) => {
-            const cartIndex = state.cartItems.findIndex(item => item.style === style);
+        DECREMENT_QUANTITY: (state, code_color) => {
+            const cartIndex = state.cartItems.findIndex(item => item.code_color === code_color);
             const updatedCart= {
                 ...state.cartItems,
                 [cartIndex]:{
@@ -34,9 +34,9 @@ const configureStore = () => {
               cartItems: updatedData
             })
         },
-        REMOVE_ITEM: (state, style) => {
+        REMOVE_ITEM: (state, code_color) => {
             const data = { ...state.cartItems};
-            const updatedData = Object.values(data).filter(item => item.style !== style);
+            const updatedData = Object.values(data).filter(item => item.code_color !== code_color);
             console.log(updatedData);
             return updateObject(state, {
               cartItems: updatedData
