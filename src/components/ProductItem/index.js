@@ -1,6 +1,5 @@
 import React from "react";
 import styled from 'styled-components';
-import imageNotFound from '../../assets/notfound.png';
 
 import notFoundLogo from '../../assets/notfound.png';
 
@@ -64,7 +63,7 @@ const ProductItem = ({ product }) => {
   return (
     <ListItem>
       <ImgItem>
-        <img src={image ? image : imageNotFound} alt={name} />
+        <img src={imageItem} alt={name} />
         {on_sale &&
           (<DiscountItem> -{discount_percentage} OFF</DiscountItem>)}
       </ImgItem>

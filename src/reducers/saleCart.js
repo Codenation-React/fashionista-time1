@@ -1,4 +1,4 @@
-import { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_ITEM } from '../constants/actionTypes';
+import { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_ITEM, ADD_TO_CART} from '../constants/actionTypes';
 import { updateObject } from '../shared/utility';
 const initialState = {
   cartItems: [
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const incrementQuantity = (state, action) => {
-  const cartIndex = state.cartItems.findIndex(item => item.style === action.style);
+  const cartIndex = state.cartItems.findIndex(item => item.code_color === action.code_color);
   const updatedCart= {
       ...state.cartItems,
       [cartIndex]:{
@@ -23,7 +23,7 @@ const incrementQuantity = (state, action) => {
 }
 
 const decrementQuantity = (state, action) => {
-  const cartIndex = state.cartItems.findIndex(item => item.style === action.style);
+  const cartIndex = state.cartItems.findIndex(item => item.code_color === action.code_color);
   const updatedCart= {
       ...state.cartItems,
       [cartIndex]:{
@@ -39,11 +39,19 @@ const decrementQuantity = (state, action) => {
 
 const removeItem = (state, action ) => {
   const data = { ...state.cartItems};
-  const updatedData = Object.values(data).filter(item => item.style !== action.style);
+  const updatedData = Object.values(data).filter(item => item.code_color !== action.code_color);
   console.log(updatedData);
   return updateObject(state, {
     cartItems: updatedData
   })
+}
+
+const addToCart = (state, action) =>{
+  const data = {...state.cartItems};
+  const updatedData = Object.values(data).push(action.product);
+  return updateObject(state, {
+      cartItems: updatedData
+  });
 }
 
 export default function saleCartReducer(state = initialState, action) {
@@ -54,6 +62,8 @@ export default function saleCartReducer(state = initialState, action) {
       return decrementQuantity(state, action);
     case REMOVE_ITEM:
       return removeItem(state, action);
+    case ADD_TO_CART:
+      return addToCart(state, action);
     default:
       return state;
   }

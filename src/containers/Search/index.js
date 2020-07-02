@@ -142,7 +142,7 @@ const Search = () => {
             setProducts([]);
         }
         console.log(search);
-    }, [search, state.products])
+    }, [search, state])
 
     return (
         <React.Fragment>

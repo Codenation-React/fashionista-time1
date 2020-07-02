@@ -88,17 +88,17 @@ const CartButton = styled.button`
     }
 `
 
-const CartItem = ({ style }) => {
+const CartItem = ({ code_color }) => {
     //com redux
     // const cartItems = useSelector( state => {
     //     return state.saleCart.cartItems
     // })
     // const dispatch = useDispatch();
     const [{cartItems}, dispatch] = useStore(false);
-    const data = cartItems && cartItems.filter(item => item.style === style)[0];
+    const data = cartItems && cartItems.filter(item => item.code_color === code_color)[0];
 
     const incrementQty = () => {
-        dispatch("INCREMENT_QUANTITY", style)
+        dispatch("INCREMENT_QUANTITY", code_color)
         //com redux
         // dispatch(action.incrementProductQuantity(style));
     }
@@ -107,17 +107,17 @@ const CartItem = ({ style }) => {
         if(data.quantity <= 1 ){
             //com redux
             // return dispatch(action.removeProduct(style))
-            return dispatch("REMOVE_ITEM", style)
+            return dispatch("REMOVE_ITEM", code_color)
         }
             //com redux
             // dispatch(action.decrementProductQuantity(style));
-            dispatch("DECREMENT_QUANTITY", style)
+            dispatch("DECREMENT_QUANTITY", code_color)
     }
 
     const removeItem = () => {
         //com redux
         // return dispatch(action.removeProduct(style))
-        dispatch("REMOVE_ITEM", style)
+        dispatch("REMOVE_ITEM", code_color)
     }
 
     return (

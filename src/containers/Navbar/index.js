@@ -42,7 +42,6 @@ const ListItem = styled.li`
 `
 const ImgLink = styled.a`
     display: flex;
-    width: 50%;
     height: 45px;
     align-items: center;
     justify-content: flex-start;

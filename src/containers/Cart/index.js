@@ -20,7 +20,7 @@ const Cart = () => {
         <Content>
             {
                 cartItems.map((product) => {
-                    return <CartItem style={product.style}></CartItem>
+                    return <CartItem key={product.code_color} code_color={product.code_color}></CartItem>
                 })
             }
         </Content>
