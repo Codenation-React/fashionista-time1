@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components'
 import * as action from '../../actions/saleCart';
 import { useStore } from '../../store/store';
-import { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_ITEM } from '../../store/products-store';
 import {  useDispatch, useSelector } from 'react-redux';
+
+
 const Content = styled.div`
-    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -88,17 +88,17 @@ const CartButton = styled.button`
     }
 `
 
-const CartItem = ({ code_color }) => {
+const CartItem = ({ code_color, size }) => {
     //com redux
     // const cartItems = useSelector( state => {
     //     return state.saleCart.cartItems
     // })
     // const dispatch = useDispatch();
     const [{cartItems}, dispatch] = useStore(false);
-    const data = cartItems && cartItems.filter(item => item.code_color === code_color)[0];
+    const data = cartItems && cartItems.filter(item => item.code_color === code_color && item.size === size)[0];
 
     const incrementQty = () => {
-        dispatch("INCREMENT_QUANTITY", code_color)
+        dispatch("INCREMENT_QUANTITY", { code_color, size })
         //com redux
         // dispatch(action.incrementProductQuantity(style));
     }
@@ -107,17 +107,17 @@ const CartItem = ({ code_color }) => {
         if(data.quantity <= 1 ){
             //com redux
             // return dispatch(action.removeProduct(style))
-            return dispatch("REMOVE_ITEM", code_color)
+            return dispatch("REMOVE_ITEM", { code_color, size })
         }
             //com redux
             // dispatch(action.decrementProductQuantity(style));
-            dispatch("DECREMENT_QUANTITY", code_color)
+            dispatch("DECREMENT_QUANTITY", { code_color, size })
     }
 
     const removeItem = () => {
         //com redux
         // return dispatch(action.removeProduct(style))
-        dispatch("REMOVE_ITEM", code_color)
+        dispatch("REMOVE_ITEM", { code_color, size })
     }
 
     return (
@@ -129,7 +129,7 @@ const CartItem = ({ code_color }) => {
                 <ItemInfo>
                     <ItemInfoText fontWeight="bold" fontSize="big">{data.name}</ItemInfoText>
                     <ItemInfoText textAlign="right" fontWeight="bold" fontSize="big">{data.actual_price}</ItemInfoText>
-                    <ItemInfoText disabled="true">Tam.: P</ItemInfoText> 
+                    <ItemInfoText disabled="true">Tam.: {data.size}</ItemInfoText> 
                     <ItemInfoText textAlign="right" disabled="true" fontSize="medium">{data.installments}</ItemInfoText>
                     <ItemInfoGroup>
                         <CartButton onClick={decrementQty}>-</CartButton>
@@ -140,6 +140,5 @@ const CartItem = ({ code_color }) => {
             </Content>
     )
 }
-
 
 export default CartItem;

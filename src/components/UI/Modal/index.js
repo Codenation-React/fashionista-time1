@@ -9,6 +9,13 @@ import Cart from '../../../containers/Cart';
 import { useSelector, useDispatch } from 'react-redux';
 import * as action from '../../../actions/modalHandler';
 
+const ModalContainer = styled.div`
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+`
+
 const ModalTopBar = styled.div`
     height: 7rem;
     background-color: white;
@@ -17,9 +24,6 @@ const ModalTopBar = styled.div`
     align-items: center;
     padding: 10px 20px;
     justify-content: flex-start;
-
-
-
 `
 const Content = styled.div`
     width: 80%;
@@ -27,41 +31,65 @@ const Content = styled.div`
     font-size: 20px;
     font-weight: bold;
     margin: 0 auto;
-    
+`
+
+const ModalBottomBar = styled.div`
+    display: ${props => props.show ? 'block' : 'none'};
+    height: 50px;
+    background: #212529;
+
+    div {
+        font-size: 1.5rem;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        line-height: 50px;
+    }
 `
 
 
 const Modal = props => {
-    const [state, dispatch] = useStore(false);
+    const [{ show, Navtype, cartItems }, dispatch] = useStore(false);
     // const state = useSelector(state => state.modalHandler);
     // const dispatch = useDispatch();
     const [shouldShow, setShouldShow] = useState(false);
+    const [totalValue = 0, setTotalValue] = useState();
 
     useEffect(() => {
-        setShouldShow(state.show);
-    }, [state.show])
+        setShouldShow(show);
+    }, [show])
+
+    
+    useEffect(() => {
+        setTotalValue(cartItems.reduce((accumulator, cartItem) => {
+            return accumulator + cartItem.quantity * parseFloat(cartItem.actual_price.replace(/[^0-9,]/g,'').replace(',', '.'));
+        }, 0))
+    }, [ cartItems ])
 
     const ModalClasses = [classes.Modal];
 
     shouldShow ? ModalClasses.push(classes.Open) : ModalClasses.push(classes.Close)
 
     const closeModal = () => {
-        dispatch('TOGGLE_SHOW', state.Navtype);
+        dispatch('TOGGLE_SHOW', Navtype);
         // dispatch(action.toggleModal(state.Navtype))
     }
-    const totalCart = state.cartItems.length
+    const totalCart = cartItems.length
     return (
         <>
             <Backdrop show={shouldShow}/>
-            <div className={ModalClasses.join(' ')}>
+            <ModalContainer className={ModalClasses.join(' ')}>
                 <ModalTopBar >
                     <ArrowBackIcon style={{fontSize: 30, cursor: 'pointer' }} onClick={() => closeModal()}/>
                     <Content>
-                    { state.Navtype === 'search' ? "Buscando Produtos" : `Sacola (${totalCart})`}
+                    { Navtype === 'search' ? "Buscando Produtos" : `Sacola (${totalCart})`}
                     </Content>
                 </ModalTopBar>
-                { state.Navtype === 'search' ? <Search/> : <Cart />}
-            </div>
+                { Navtype === 'search' ? <Search/> : <Cart />}
+                <ModalBottomBar show={Navtype !== 'search'}>
+                    <div>Subtotal - R$ {totalValue.toFixed(2).replace('.', ',')}</div>
+                </ModalBottomBar>
+            </ModalContainer>
         </>
 
     )
