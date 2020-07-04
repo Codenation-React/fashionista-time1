@@ -129,8 +129,8 @@ const CartItem = ({ code_color }) => {
                 <ItemInfo>
                     <ItemInfoText fontWeight="bold" fontSize="big">{data.name}</ItemInfoText>
                     <ItemInfoText textAlign="right" fontWeight="bold" fontSize="big">{data.actual_price}</ItemInfoText>
-                    <ItemInfoText disabled="true">Tam.: P</ItemInfoText> 
-                    <ItemInfoText textAlign="right" disabled="true" fontSize="medium">{data.installments}</ItemInfoText>
+                    <ItemInfoText disabled={true} >Tam.: P</ItemInfoText> 
+                    <ItemInfoText textAlign="right" disabled={true} fontSize="medium">{data.installments}</ItemInfoText>
                     <ItemInfoGroup>
                         <CartButton onClick={decrementQty}>-</CartButton>
                         <ItemInfoText textAlign="center" fontSize="big">{data.quantity}</ItemInfoText>

@@ -19,9 +19,9 @@ const Cart = () => {
     return (
         <Content>
             {
-                cartItems.map((product) => {
+                cartItems ? cartItems.map((product) => {
                     return <CartItem key={product.code_color} code_color={product.code_color}></CartItem>
-                })
+                }) : null
             }
         </Content>
     )

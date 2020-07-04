@@ -8,7 +8,7 @@ const configureStore = () => {
     const actions = {
         INCREMENT_QUANTITY: (state, code_color) => {
             const cartIndex = state.cartItems.findIndex(item => item.code_color === code_color);
-            const updatedCart= {
+            const updatedCart = {
                 ...state.cartItems,
                 [cartIndex]:{
                   ...state.cartItems[cartIndex],
