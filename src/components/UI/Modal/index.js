@@ -8,6 +8,8 @@ import Search from '../../../containers/Search/'
 import Cart from '../../../containers/Cart';
 import { useSelector, useDispatch } from 'react-redux';
 import * as action from '../../../actions/modalHandler';
+import Login from '../../../containers/Login';
+import Register from '../../../containers/register'
 
 const ModalContainer = styled.div`
     overflow: hidden;
@@ -75,6 +77,28 @@ const Modal = props => {
         // dispatch(action.toggleModal(state.Navtype))
     }
     const totalCart = cartItems.length
+
+    let content;
+    let title;
+    switch(Navtype){
+        case 'search':
+            title = 'Buscando Produtos';
+            content = <Search/>;
+        break;
+        case 'cart':
+            title = `Sacola (${totalCart})`;
+            content = <Cart />;
+        break;
+        case 'register':
+            title = "Registre-se";
+            content = <Register/>;
+        break;
+        default:
+            title = 'Faça Login';
+            content = <Login/>;
+        break;
+    }
+
     return (
         <>
             <Backdrop show={shouldShow}/>
@@ -82,11 +106,11 @@ const Modal = props => {
                 <ModalTopBar >
                     <ArrowBackIcon style={{fontSize: 30, cursor: 'pointer' }} onClick={() => closeModal()}/>
                     <Content>
-                    { Navtype === 'search' ? "Buscando Produtos" : `Sacola (${totalCart})`}
+                        { title }
                     </Content>
                 </ModalTopBar>
-                { Navtype === 'search' ? <Search/> : <Cart />}
-                <ModalBottomBar show={Navtype !== 'search'}>
+                { content }
+                <ModalBottomBar show={Navtype === 'cart'}>
                     <div>Subtotal - R$ {totalValue.toFixed(2).replace('.', ',')}</div>
                 </ModalBottomBar>
             </ModalContainer>

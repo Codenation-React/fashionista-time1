@@ -30,7 +30,6 @@ const Container = () => {
         state.products && setIsLoading(false)
       })
       .catch(error => {
-        // setCatalog(mockData);
         axios.get(catalogUrl2)
           .then(response => {
               setCatalog(response.data);

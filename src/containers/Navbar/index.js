@@ -108,6 +108,11 @@ const Navbar = () => {
                                 </TotalItems>
                             </Link>
                         </ListItem>
+                        <ListItem>
+                            <Link onClick={() => showModalHandler('Login')}  style={{ fontSize: 20, fontWeight: 'bold' }}>
+                                Login
+                            </Link>
+                        </ListItem>
                     </Navlista>
                 </Nav>
             </Content>

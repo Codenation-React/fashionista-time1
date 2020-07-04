@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ConfigureModalHandler from './store/modalHandler-store';
 import ConfigureProducts from './store/products-store';
+import ConfigureAuth from './store/auth-store';
 
 ConfigureProducts();
 ConfigureModalHandler();

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import EmailIcon from "@material-ui/icons/Email";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { useStore } from "../../store/store";
@@ -71,24 +70,29 @@ const LoginStrong = styled.strong`
   color: red;
 `;
 
-const Login = () => {
+const Register = () => {
   const [state, dispatch] = useStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const changeToRegisterHandler = (type) => {
     dispatch("TOGGLE_SHOW");
     dispatch("TOGGLE_SHOW", type);
   };
+  const styledIcon = {
+    fontSize: 30,
+    position: "absolute",
+    margin: 3,
+    borderRight: "1px solid #ccc",
+  };
 
-  const loginHandler = () => {
+  const register = () => {
     const authData = {
       email: email,
       password: password,
       returnSecureToken: true,
     };
     const url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAc_Mg5ggNONLHgPMfCQy5gIFPQO0gK_vM";
+      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAc_Mg5ggNONLHgPMfCQy5gIFPQO0gK_vM";
     axios
       .post(url, authData)
       .then((response) => {
@@ -101,41 +105,37 @@ const Login = () => {
   return (
     <LoginContent>
       <LoginForm>
-        <LoginLabel htmlFor="email">Email:</LoginLabel>
+        <LoginLabel htmlFor="email">Seu E-mail:</LoginLabel>
         <LoginIcon>
-          <EmailIcon
-            style={{
-              fontSize: 30,
-              position: "absolute",
-              margin: 3,
-              borderRight: "1px solid #ccc",
-            }}
+          <EmailIcon style={styledIcon} />
+          <LoginInput
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <LoginInput type="email" name="email" onChange={(e) => setEmail(e.target.value)}/>
         </LoginIcon>
-        <LoginLabel htmlFor="senha">Senha:</LoginLabel>
+        <LoginLabel htmlFor="senha">Sua senha:</LoginLabel>
         <LoginIcon>
-          <VpnKeyIcon
-            style={{
-              fontSize: 30,
-              position: "absolute",
-              margin: 3,
-              borderRight: "1px solid #ccc",
-            }}
+          <VpnKeyIcon style={styledIcon} />
+          <LoginInput
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          <LoginInput type="password" name="password" onChange={(e) => setPassword(e.target.value)}/>
         </LoginIcon>
         <LoginP>
-          Não possui um Cadastro?{" "}
-          <LoginStrong onClick={() => changeToRegisterHandler("register")}>
-            Registre-se
+          ja possui um Cadastro?{" "}
+          <LoginStrong onClick={() => changeToRegisterHandler("login")}>
+            Faça Login
           </LoginStrong>{" "}
           agora
         </LoginP>
-        <LoginBtn onClick={() => loginHandler()}>Sign in</LoginBtn>
+        <LoginBtn onClick={() => register()}>Sign up</LoginBtn>
       </LoginForm>
     </LoginContent>
   );
 };
 
-export default Login;
+export default Register;
