@@ -126,8 +126,19 @@ const Search = () => {
   const [search, setSearch] = useState('');
   const searchProductHandler = event => setSearch(event.target.value);
 
+  const removeAcento = (text) => {
+    text = text.toLowerCase();                                                         
+    text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
+    text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
+    text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
+    text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
+    text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
+    text = text.replace(new RegExp('[Ç]','gi'), 'c');
+    return text;                 
+}
+
   const filteredProducts = products && products
-    .filter(product => product.name.toLowerCase().includes(search.toLowerCase()))
+    .filter(product => removeAcento(product.name).toLowerCase().includes(removeAcento(search).toLowerCase()))
     .map(each => (
       <StyledProduct href={`/product/${each.style}`}>
         <ProductImageDiv>
