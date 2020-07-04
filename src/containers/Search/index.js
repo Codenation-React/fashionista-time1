@@ -3,9 +3,13 @@ import styled from 'styled-components';
 import Notfound from '../../assets/notfound.png';
 import { useStore } from '../../store/store';
 
+const SearchContainer = styled.div`
+    overflow-y: auto;
+    overflow-x: hidden;
+`
+
 const SearchDiv = styled.div`
     background: #f6f6f6;
-    width: 100%;
     height: 60px;
     display: flex;
     flex-direction:column;
@@ -152,20 +156,22 @@ const Search = () => {
                     onChange={(e) => searchProductHandler(e)}
                 />
             </SearchDiv>
-            {
-               products && products.map(each => (
-                    <StyledProduct href={`/product/${each.style}`}>
-                        <ProductImageDiv>
-                            <ProductImage src={each.image ? each.image : Notfound} alt="product"/>
-                        </ProductImageDiv>
-                        <StyledName>{each.name}</StyledName>
-                        <ProductPrice>
-                            <div className="price">{each.actual_price}</div>
-                            <div className="installments">{each.installments}</div>
-                        </ProductPrice>
-                    </StyledProduct>
-                ))
-            }
+            <SearchContainer>
+                {
+                products && products.map(each => (
+                        <StyledProduct href={`/product/${each.style}`}>
+                            <ProductImageDiv>
+                                <ProductImage src={each.image ? each.image : Notfound} alt="product"/>
+                            </ProductImageDiv>
+                            <StyledName>{each.name}</StyledName>
+                            <ProductPrice>
+                                <div className="price">{each.actual_price}</div>
+                                <div className="installments">{each.installments}</div>
+                            </ProductPrice>
+                        </StyledProduct>
+                    ))
+                }
+            </SearchContainer>
         </React.Fragment>
     )
 }
