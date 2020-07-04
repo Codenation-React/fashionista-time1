@@ -20,10 +20,11 @@ const Cart = () => {
     // const cartItems = useSelector(state => state.saleCart.cartItems)
     return (
         <Content>
+
                 {
-                    cartItems.map(({ code_color, size }) => {
+                    cartItems ?  cartItems.map(({ code_color, size }) => {
                         return <CartItem key={ code_color + size } code_color={code_color} size={size} ></CartItem>
-                    })
+                    }) : null
                 }
         </Content>
     )

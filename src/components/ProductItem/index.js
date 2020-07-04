@@ -34,7 +34,7 @@ const DescItem = styled.a`
   font-size: 1rem;
   font-weight: 500;
 `
-const TitleItem = styled.a`
+const TitleItem = styled.p`
   font-size: 1.4rem;
   font-weight: 650;
   margin-top: 5px;

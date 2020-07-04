@@ -140,12 +140,10 @@ const Search = () => {
                         .indexOf(removeAcento(search.toLowerCase())) !== -1
                 )
             })
-            console.log(filteredProducts);
             setProducts(filteredProducts);
         }else{
             setProducts([]);
         }
-        console.log(search);
     }, [search, state])
 
     return (
