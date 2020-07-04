@@ -140,7 +140,7 @@ const Search = () => {
   const filteredProducts = products && products
     .filter(product => removeAcento(product.name).toLowerCase().includes(removeAcento(search).toLowerCase()))
     .map(each => (
-      <StyledProduct href={`/product/${each.style}`}>
+      <StyledProduct href={`/product/${each.name.toLowerCase().split(" ").join('-')}`}>
         <ProductImageDiv>
           <ProductImage src={each.image ? each.image : Notfound} alt='product'/>
         </ProductImageDiv>
