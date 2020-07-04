@@ -12,8 +12,7 @@ import * as action from '../../../actions/modalHandler';
 const ModalContainer = styled.div`
     overflow: hidden;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: grid;
 `
 
 const ModalTopBar = styled.div`
@@ -37,6 +36,7 @@ const ModalBottomBar = styled.div`
     display: ${props => props.show ? 'block' : 'none'};
     height: 50px;
     background: #212529;
+    align-self: end;
 
     div {
         font-size: 1.5rem;
