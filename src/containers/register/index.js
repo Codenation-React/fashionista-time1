@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import EmailIcon from "@material-ui/icons/Email";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import Loading from "../../components/UI/Loading";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { useStore } from "../../store/store";
 import axios from "axios";
 
+
 const LoginContent = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
+  @media (min-width: 480px) {
+    align-items: center;
+    flex-direction: column;
+    justify-content: inherit;
+  }
 `;
 
 const LoginForm = styled.div`
@@ -68,12 +77,41 @@ const LoginStrong = styled.strong`
   cursor: pointer;
   font-size: 17px;
   color: red;
+  white-space: nowrap;
+`;
+
+const LoginSuccess = styled.div`
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SuccessParagraph = styled.p`
+  font-size: 30px;
+`;
+
+const LoginErrorBox = styled.div`
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+`;
+
+const LoginError = styled.p`
+  color: red;
+  font-size: 1.6rem;
 `;
 
 const Register = () => {
+
   const [state, dispatch] = useStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+
   const changeToRegisterHandler = (type) => {
     dispatch("TOGGLE_SHOW");
     dispatch("TOGGLE_SHOW", type);
@@ -93,16 +131,28 @@ const Register = () => {
     };
     const url =
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAc_Mg5ggNONLHgPMfCQy5gIFPQO0gK_vM";
+    setIsLoading(true);
     axios
       .post(url, authData)
       .then((response) => {
         console.log(response);
+        setIsLoading(false);
+        dispatch("AUTH_SUCCESS", {
+          userID: response.data.localId,
+          idToken: response.data.idToken,
+        });
+        setTimeout(() => {
+          dispatch("TOGGLE_SHOW");
+        }, 800);
       })
       .catch((error) => {
+        setError(true);
+        setIsLoading(false);
         console.log(error);
       });
   };
-  return (
+
+  let content = (
     <LoginContent>
       <LoginForm>
         <LoginLabel htmlFor="email">Seu E-mail:</LoginLabel>
@@ -132,10 +182,31 @@ const Register = () => {
           </LoginStrong>{" "}
           agora
         </LoginP>
+        {error && (
+          <LoginErrorBox>
+            <LoginError>Já existe um usuario registrado com esse E-mail!</LoginError>
+          </LoginErrorBox>
+        )}
         <LoginBtn onClick={() => register()}>Sign up</LoginBtn>
       </LoginForm>
     </LoginContent>
-  );
+  )
+
+  if(isLoading){
+    content = <Loading />
+  }
+  
+  if (state.isAuth) {
+    content = (
+      <LoginContent>
+        <LoginSuccess>
+          <CheckCircleOutlineIcon style={{ fontSize: 100 }} />
+          <SuccessParagraph>Registrado com sucesso!</SuccessParagraph>
+        </LoginSuccess>
+      </LoginContent>
+    );
+  }
+  return content;
 };
 
 export default Register;

@@ -7,6 +7,7 @@ import ConfigureModalHandler from './store/modalHandler-store';
 import ConfigureProducts from './store/products-store';
 import ConfigureAuth from './store/auth-store';
 
+ConfigureAuth();
 ConfigureProducts();
 ConfigureModalHandler();
 ReactDOM.render(
