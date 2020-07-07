@@ -2,11 +2,21 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Notfound from "../../assets/notfound.png";
 import { useStore } from "../../store/store";
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+import SentimentDissatisfiedOutlinedIcon from "@material-ui/icons/SentimentDissatisfiedOutlined";
+import { Link } from "react-router-dom";
+import { formatText } from '../../shared/utility';
 
 const NoResultFound = styled.span`
-  font-size: 16px;
-  padding: 5px;
+  margin: auto 0;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ccc;
 `;
 
 const ProductImage = styled.img`
@@ -109,17 +119,19 @@ const StyledName = styled.div`
 
 const StyledProduct = styled.a`
   align-items: flex-start;
-  box-sizing: border-box;
   border-bottom: 1px solid #eee;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  height: 280px;
-  justify-content: flex-start;
-  padding: 20px 10px;
-  text-decoration: none;
   width: 100%;
+  a {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 280px;
+    justify-content: flex-start;
+    padding: 20px 10px;
+    text-decoration: none;
+    width: 100%;
+    color: black;
+  }
 `;
 
 const NewSearchDiv = styled.div`
@@ -132,19 +144,19 @@ const NewSearchDiv = styled.div`
   font-size: 2rem;
   font-weight: bold;
   color: #ccc;
-`
+`;
 
 const Search = () => {
-  const { products } = useStore()[0];
+  const [{ products }, dispatch] = useStore();
   const [search, setSearch] = useState("");
   const [isTouched, setIsTouched] = useState("");
   const searchProductHandler = (event) => {
     setSearch(event.target.value);
     setIsTouched(true);
-    if(event.target.value.length === 0){
+    if (event.target.value.length === 0) {
       setIsTouched(false);
     }
-  }
+  };
 
   const removeAcento = (text) => {
     text = text.toLowerCase();
@@ -165,36 +177,47 @@ const Search = () => {
           .toLowerCase()
           .includes(removeAcento(search).toLowerCase())
       )
-      .map((each) => (
-        <StyledProduct
-          href={`/product/${each.name.toLowerCase().split(" ").join("-")}`}
-        >
-          <ProductImageDiv>
-            <ProductImage
-              src={each.image ? each.image : Notfound}
-              alt="product"
-            />
-          </ProductImageDiv>
-          <StyledName>{each.name}</StyledName>
-          <ProductPrice>
-            <div className="price">{each.actual_price}</div>
-            <div className="installments">{each.installments}</div>
-          </ProductPrice>
+      .map((product) => (
+        <StyledProduct key={product.code_color}>
+          <Link
+            to={{
+              pathname: `/product/${formatText(product.name)}`,
+            }}
+            onClick={() => dispatch("TOGGLE_SHOW")}
+          >
+            <ProductImageDiv>
+              <ProductImage
+                src={product.image ? product.image : Notfound}
+                alt="product"
+              />
+            </ProductImageDiv>
+            <StyledName>{product.name}</StyledName>
+            <ProductPrice>
+              <div className="price">{product.actual_price}</div>
+              <div className="installments">{product.installments}</div>
+            </ProductPrice>
+          </Link>
         </StyledProduct>
       ));
-      let result = (
-        <NewSearchDiv>
-          <SearchOutlinedIcon style={{fontSize: 100, color: '#CCC'}}/>
-            Procure por um produto
-        </NewSearchDiv>
-      )
-      if(isTouched){
-        result = Array.isArray(filteredProducts) && filteredProducts ? (
-          filteredProducts
-        ) : (
-          <NoResultFound>Nenhum produto foi encontrado.</NoResultFound>
-        );
-      }
+  let result = (
+    <NewSearchDiv>
+      <SearchOutlinedIcon style={{ fontSize: 100, color: "#CCC" }} />
+      Procure por um produto
+    </NewSearchDiv>
+  );
+  if (isTouched) {
+    result =
+      Array.isArray(filteredProducts) && filteredProducts.length ? (
+        filteredProducts
+      ) : (
+        <NoResultFound>
+          <SentimentDissatisfiedOutlinedIcon
+            style={{ fontSize: 100, color: "#CCC" }}
+          />
+          Nenhum produto foi encontrado.
+        </NoResultFound>
+      );
+  }
 
   return (
     <>

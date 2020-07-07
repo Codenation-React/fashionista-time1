@@ -66,6 +66,7 @@ const LoginBtn = styled.button`
     font-size: 22px;
   }
 `;
+
 const LoginP = styled.p`
   font-size: 16px;
 `;

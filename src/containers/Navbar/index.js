@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import Logo from "../../assets/clothes.svg";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
@@ -6,6 +6,7 @@ import LocalMallOutlinedIcon from "@material-ui/icons/LocalMallOutlined";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import Modal from "../../components/UI/Modal";
 import { useStore } from "../../store/store";
+import axios from "axios";
 // import { useDispatch } from 'react-redux';
 // import * as action from '../../actions/modalHandler';
 
@@ -74,6 +75,7 @@ const TotalItems = styled.div`
 
 const Navbar = () => {
   const [state, dispatch] = useStore();
+  const [catalog, setCatalog] = useState({})
   // com redux
   // const dispatch = useDispatch()
 
@@ -83,9 +85,44 @@ const Navbar = () => {
     // com custom hook
     dispatch("TOGGLE_SHOW", type);
   };
+  const fetchCatalog = () => {
+    if (state.products.length > 0) {
+      return;
+    }
+    const catalogUrl =
+      "https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog";
+    const catalogUrl2 = "https://undefined.netlify.app/api/catalog";
+    axios
+      .get(catalogUrl)
+      .then((response) => {
+        setCatalog(response.data);
+        dispatch("LOADING_HANDLER");
+      })
+      .catch((error) => {
+        axios
+          .get(catalogUrl2)
+          .then((response) => {
+            setCatalog(response.data);
+            dispatch("LOADING_HANDLER");
+          })
+          .catch((error) => {
+            console.log(`There was an error during the fetch: ${error}`);
+          });
+        console.log(`There was an error during the fetch: ${error}`);
+      });
+  };
+
+  useEffect(() => {
+    fetchCatalog();
+  }, []);
+
+
+  useEffect(() => {
+    dispatch("INIT_PRODUCTS", catalog);
+  }, [catalog]);
+
 
   const totalCart = state.cartItems.length;
-  console.log(state.isAuth, state.userID, state.idToken);
   return (
     <Header>
       <Content>

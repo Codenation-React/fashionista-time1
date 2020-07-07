@@ -30,29 +30,17 @@ const Container = () => {
 
   let routes = (
     <>
-    <Route exact path='/'>
-      <ProductList />
-    </Route>
-    <Route path="/product/:id" component={ProductModal} />
-    <Redirect to="/"/>
+      <Route exact path='/' component={ProductList} />
+      <Route path="/product/:id" component={ProductModal} />
     </>
   )
   if(state.isAuth){
     routes = (
       <>
-      <Route exact path='/'>
-        <ProductList />
-      </Route>
-      <Route path="/product/:id" component={ProductModal} />
-      <Route path='/orders'>
-        <Orders />
-      </Route>
-      <Route path='/checkout'>
-        <Checkout />
-      </Route>
-      <Route path="/product/:id">
-        <ProductList />
-      </Route>
+        <Route exact path='/' component={ProductList} />
+        <Route path="/product/:id" component={ProductModal} />
+        <Route path='/orders' component={Orders}/>
+        <Route path='/checkout'component={Checkout} />
       </>
     )
   }
@@ -64,6 +52,7 @@ const Container = () => {
         <App className='App'>
           <Switch>
             { routes }
+            <Redirect to="/"/>
           </Switch>
         </App>
       </Router>

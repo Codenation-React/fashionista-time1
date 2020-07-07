@@ -32,7 +32,7 @@ const DiscountItem = styled.span`
   color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 `;
-const DescItem = styled.a`
+const DescItem = styled.div`
   width: 100%;
   text-align: center;
   display: flex;
@@ -61,7 +61,7 @@ const PriceItemOld = styled.a`
   text-decoration: solid line-through #808080;
 `;
 
-const ProductItem = ({ product }) => {
+const ProductItem = (props) => {
   const {
     name,
     image,
@@ -69,7 +69,7 @@ const ProductItem = ({ product }) => {
     on_sale,
     discount_percentage,
     regular_price,
-  } = product;
+  } = props.product;
 
   const imageItem = image || notFoundLogo;
 
@@ -79,7 +79,7 @@ const ProductItem = ({ product }) => {
     <ListItem>
       <Link to={{
         pathname: `/product/${newName}`,
-        state: product,
+        state: props.product,
       }}>
         <ImgItem>
           <img src={imageItem} alt={name} />

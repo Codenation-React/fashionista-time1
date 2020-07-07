@@ -122,9 +122,12 @@ const configureStore = () => {
     INIT_PRODUCTS: (state, products) => {
       return { ...state, products: products };
     },
+    LOADING_HANDLER: (state, value) => {
+      return { ...state, IsLoading: !state.IsLoading}
+    }
   };
 
-  initStore(actions, { products: [], cartItems: loadCart() });
+  initStore(actions, { products: [], cartItems: loadCart(), IsLoading: true });
 };
 
 export default configureStore;
