@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link  } from "react-router-dom";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import { useStore } from "../../store/store";
+
 
 const MyAccountContent = styled.div`
   display: flex;
@@ -72,14 +73,14 @@ const MyAccount = () => {
             <MyAccountLinkItems>
               <Link to="/orders" onClick={() => dispatch("TOGGLE_SHOW")}>
                 <MyAccountItemsWrapper>
-                  ORDERS
+                  MINHAS COMPRAS
                   <ListAltOutlinedIcon style={{ fontSize: 35 }} />
                 </MyAccountItemsWrapper>
               </Link>
             </MyAccountLinkItems>
             <MyAccountLinkItems onClick={() => onLogout()}>
               <MyAccountItemsWrapper>
-                LOGOUT
+                SAIR
                 <ExitToAppOutlinedIcon style={{ fontSize: 35 }} />
               </MyAccountItemsWrapper>
             </MyAccountLinkItems>

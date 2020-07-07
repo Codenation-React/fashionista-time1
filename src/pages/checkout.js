@@ -5,6 +5,11 @@ import "react-credit-cards/es/styles-compiled.css";
 import styled from "styled-components";
 import InputMask from "react-input-mask";
 import axios from 'axios';
+import Loading from "../components/UI/Loading";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import { Redirect } from 'react-router-dom';
+import SentimentDissatisfiedOutlinedIcon from "@material-ui/icons/SentimentDissatisfiedOutlined";
+import useInitProducts from '../hooks/useInitProducts';
 
 const CheckoutContent = styled.div`
   display: flex;
@@ -13,6 +18,18 @@ const CheckoutContent = styled.div`
   justify-content: center;
   padding: 20px 10px;
 `;
+
+const NoResultFound = styled.span`
+  margin: auto 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+`;
+
 
 const CheckoutForm = styled.div`
   display: flex;
@@ -57,6 +74,18 @@ const CheckoutLabel = styled.label`
     color: black;
 `
 
+const CheckoutSuccess = styled.div`
+  height: 100vh;
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const SuccessParagraph = styled.p`
+  font-size: 30px;
+`;
+
 const Checkout = () => {
   const [state, dispatch] = useStore(false);
   const [cardData, setCardData] = useState({
@@ -72,6 +101,12 @@ const Checkout = () => {
     number: "",
     zipCode: "",
   });
+
+  const [IsLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [shouldRedirect, setshouldRedirect] = useState(false);
+  const products = useInitProducts();
 
   const handleInputFocus = (e) => {
     setCardData({ ...cardData, focus: e.target.name });
@@ -95,19 +130,22 @@ const Checkout = () => {
         addressData: addressData,
         userID: state.userID,
     }
-
+    setIsLoading(true);
     axios.post('https://fashionista-time1.firebaseio.com/orders.json', orderData)
         .then(response => {
-            console.log(response);
+            setSuccess(true);
+            setIsLoading(false);
+            dispatch("RESET_CART");
         })
         .catch(error => {
-            console.log(error);
+            setError(true);
+            setIsLoading(false);
         })
 
   }
 
-  return (
-    <CheckoutContent>
+  let content = (
+<CheckoutContent>
       <div id="PaymentForm">
         <Cards
           cvc={cardData.cvc}
@@ -117,18 +155,19 @@ const Checkout = () => {
           number={cardData.number}
         />
         <CheckoutForm>
+          <CheckoutLabel>Informações de Pagamento</CheckoutLabel>
           <InputMask
             mask="9999 9999 9999 9999"
             type="tel"
             name="number"
-            placeholder="Card Number"
+            placeholder="Numero do Cartão"
             onChange={handleCardInputChange}
             onFocus={handleInputFocus}
           />
           <InputMask
             type="text"
             name="name"
-            placeholder="Card name"
+            placeholder="Nome do Titular"
             onChange={handleCardInputChange}
             onFocus={handleInputFocus}
           />
@@ -137,7 +176,7 @@ const Checkout = () => {
             maskPlaceholder="mm/yyyy"
             type="text"
             name="expiry"
-            placeholder="Validade"
+            placeholder="Data de Validade"
             onChange={handleCardInputChange}
             onFocus={handleInputFocus}
           />
@@ -153,29 +192,66 @@ const Checkout = () => {
           <InputMask
             type="tel"
             name="street"
-            placeholder="Street"
+            placeholder="Rua/Av"
             onChange={handleAddressInputChange}
             onFocus={handleInputFocus}
           />
           <InputMask
             type="tel"
             name="number"
-            placeholder="Number"
+            placeholder="Número"
             onChange={handleAddressInputChange}
             onFocus={handleInputFocus}
           />
           <InputMask
             type="tel"
             name="zipCode"
-            placeholder="Zip Code"
+            placeholder="CEP"
             onChange={handleAddressInputChange}
             onFocus={handleInputFocus}
           />
-          <CheckoutBtn onClick={() => checkoutHandler()}>CHECKOUT</CheckoutBtn>
+          <CheckoutBtn onClick={() => checkoutHandler()}>COMPRAR</CheckoutBtn>
         </CheckoutForm>
       </div>
     </CheckoutContent>
-  );
+  )
+
+  if(IsLoading){
+    content = <Loading/>
+  }
+
+  if(error){
+    content = (
+      <NoResultFound>
+        <SentimentDissatisfiedOutlinedIcon
+          style={{ fontSize: 100 }}
+        />
+        Não foi possivel realizar a compra! Tente novamente em instantes
+    </NoResultFound>
+    )
+    setTimeout(()=>{
+      setError(false);
+    }, 1200)
+  }
+  
+  if(success){
+    content = (
+    <CheckoutSuccess>
+      <CheckCircleOutlineIcon style={{ fontSize: 100 }} />
+      <SuccessParagraph>Compra Realizada com Sucesso</SuccessParagraph>
+    </CheckoutSuccess>  
+    )
+    setTimeout(()=>{
+      setshouldRedirect(true);
+      
+    }, 1200)
+  }
+  return (
+    <>
+    {content}
+    {shouldRedirect && <Redirect to="/orders"/>}
+    </>
+    );
 };
 
 export default Checkout;

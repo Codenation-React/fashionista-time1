@@ -110,6 +110,12 @@ const configureStore = () => {
         cartItems: updatedData,
       });
     },
+    RESET_CART:(state, value) => {
+      persistCart([]);
+      return updateObject(state, {
+        cartItems: [],
+      });
+    },
     ADD_TO_CART: (state, product) => {
       const data = { ...state.cartItems };
       const updatedData = Object.values(data);

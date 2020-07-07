@@ -69,7 +69,7 @@ const Modal = (props) => {
   // const state = useSelector(state => state.modalHandler);
   // const dispatch = useDispatch();
   const [shouldShow, setShouldShow] = useState(false);
-  const [totalValue = 0, setTotalValue] = useState();
+  const [totalValue, setTotalValue] = useState(0);
 
   useEffect(() => {
     setShouldShow(show);
@@ -153,10 +153,10 @@ const Modal = (props) => {
         <ModalBottomBar show={Navtype === "cart"}>
           <div>
             Subtotal - R$ {totalValue.toFixed(2).replace(".", ",")}{" "}
-            <Link to="/checkout" onClick={() => checkoutWithAuth()}>
+            {cartItems.length > 0 && (<Link to="/checkout" onClick={() => checkoutWithAuth()}>
               CHECKOUT
               <ArrowForwardIcon style={{ fontSize: 30 }} />
-            </Link>
+            </Link>)}
           </div>
         </ModalBottomBar>
       </ModalContainer>

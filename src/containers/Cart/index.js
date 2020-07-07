@@ -14,8 +14,7 @@ const Content = styled.div`
 `;
 
 const Cart = () => {
-  const [{ cartItems }, dispatch] = useStore(true);
-  console.log(cartItems);
+  const [{ cartItems }, dispatch] = useStore(false);
   //com redux
   // const cartItems = useSelector(state => state.saleCart.cartItems)
   return (

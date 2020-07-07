@@ -20,7 +20,7 @@ import ProductList from './pages/ProductList';
 import ProductModal from './pages/ProductModal';
 
 const App = styled.div`
-  height: 100%;
+  height: auto;
   background-color: #fafafa;
 `;
 
@@ -29,19 +29,21 @@ const Container = () => {
   const state = useStore()[0];
 
   let routes = (
-    <>
+    <Switch>
       <Route exact path='/' component={ProductList} />
       <Route path="/product/:id" component={ProductModal} />
-    </>
+      <Redirect to="/"/>
+    </Switch>
   )
   if(state.isAuth){
     routes = (
-      <>
+      <Switch>
         <Route exact path='/' component={ProductList} />
         <Route path="/product/:id" component={ProductModal} />
         <Route path='/orders' component={Orders}/>
         <Route path='/checkout'component={Checkout} />
-      </>
+        <Redirect to="/"/>
+      </Switch>
     )
   }
 
@@ -50,10 +52,7 @@ const Container = () => {
       <Router>
       <Navbar />
         <App className='App'>
-          <Switch>
             { routes }
-            <Redirect to="/"/>
-          </Switch>
         </App>
       </Router>
     </Provider>

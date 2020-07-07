@@ -15,6 +15,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
 `;
 
 const Content = styled.div`
@@ -85,42 +86,6 @@ const Navbar = () => {
     // com custom hook
     dispatch("TOGGLE_SHOW", type);
   };
-  const fetchCatalog = () => {
-    if (state.products.length > 0) {
-      return;
-    }
-    const catalogUrl =
-      "https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog";
-    const catalogUrl2 = "https://undefined.netlify.app/api/catalog";
-    axios
-      .get(catalogUrl)
-      .then((response) => {
-        setCatalog(response.data);
-        dispatch("LOADING_HANDLER");
-      })
-      .catch((error) => {
-        axios
-          .get(catalogUrl2)
-          .then((response) => {
-            setCatalog(response.data);
-            dispatch("LOADING_HANDLER");
-          })
-          .catch((error) => {
-            console.log(`There was an error during the fetch: ${error}`);
-          });
-        console.log(`There was an error during the fetch: ${error}`);
-      });
-  };
-
-  useEffect(() => {
-    fetchCatalog();
-  }, []);
-
-
-  useEffect(() => {
-    dispatch("INIT_PRODUCTS", catalog);
-  }, [catalog]);
-
 
   const totalCart = state.cartItems.length;
   return (

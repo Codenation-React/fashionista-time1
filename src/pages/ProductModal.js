@@ -8,6 +8,7 @@ import axios from "axios";
 import Loading from "../components/UI/Loading";
 import notFoundLogo from "../assets/notfound.png";
 import SizeButton from "../components/SizeButton";
+import useInitProducts from '../hooks/useInitProducts';
 
 const ItemDetail = styled.section`
   margin-top: 1rem;
@@ -92,51 +93,20 @@ const ButtonAddBag = styled.button`
 const ProductModal = (props) => {
   const [product, setProduct] = useState({});
   const [state, dispatch] = useStore(false);
-
+  const products = useInitProducts();
+  
   const addProduct = (size) => {
     setProduct({ ...product, size: size, quantity: 1 });
 
   }
 
   useEffect(() => {
-    if (state.products.length > 0) {
-      return setProduct(
-        state.products.find((item) => {
-          return formatText(item.name) === props.match.params.id;
-        })
-      );
-    }
-    const catalogUrl =
-      "https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog";
-    const catalogUrl2 = "https://undefined.netlify.app/api/catalog";
-
-    axios
-      .get(catalogUrl)
-      .then((response) => {
-        dispatch('INIT_PRODUCTS', response.data);
-        setProduct(
-          response.data.find((item) => {
-            return formatText(item.name) === props.match.params.id;
-          })
-        );
+    products && setProduct(
+      products.find((item) => {
+        return formatText(item.name) === props.match.params.id;
       })
-      .catch((error) => {
-        axios
-          .get(catalogUrl2)
-          .then((response) => {
-            dispatch('INIT_PRODUCTS', response.data);
-            setProduct(
-              response.data.find((item) => {
-                return formatText(item.name) === props.match.params.id;
-              })
-            );
-          })
-          .catch((error) => {
-            console.log(`There was an error during the fetch: ${error}`);
-          });
-        console.log(`There was an error during the fetch: ${error}`);
-      });
-  }, []);
+    );
+  }, [products, props.match.params.id]);
 
   let content = <Loading />;
 
