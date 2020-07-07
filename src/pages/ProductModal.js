@@ -75,6 +75,10 @@ const ItemDetailInstallments = styled.span`
 
 const ItemDetailOptions = styled.p``;
 
+const ItemDetailButtons = styled.div`
+
+`
+
 const ButtonAddBag = styled.button`
   background-color: #303030;
   color: #fff;
@@ -91,8 +95,8 @@ const ProductModal = (props) => {
 
   const addProduct = (size) => {
     setProduct({ ...product, size: size, quantity: 1 });
-    console.log(product);
-  };
+
+  }
 
   useEffect(() => {
     if (state.products.length > 0) {
@@ -181,8 +185,10 @@ const ProductModal = (props) => {
 
             <ItemDetailOptions>
               Escolha o tamanho:
-              {btns}
             </ItemDetailOptions>
+            <ItemDetailButtons>
+              {btns}
+            </ItemDetailButtons>
 
             <ButtonAddBag onClick={() => dispatch("ADD_TO_CART", product)}>
               Adicionar à Sacola
