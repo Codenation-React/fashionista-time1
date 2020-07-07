@@ -9,9 +9,14 @@ const ListItem = styled.li`
   list-style-type: none;
   margin: 15px;
   width: 235px;
+  transition: transform 0.35s ease-out;
   a {
     text-decoration: none;
     color: #303030;
+  }
+  &:hover {
+    box-shadow: 0 22px 22px 0 rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
   }
 `;
 const ImgItem = styled.div`

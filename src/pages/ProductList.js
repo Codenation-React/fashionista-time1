@@ -6,6 +6,7 @@ import ProductItem from "../components/ProductItem";
 import Loading from "../components/UI/Loading";
 
 const ListContainer = styled.div`
+  background-color: #FAFAFA;
   display: flex;
   justify-content: center;
 `;
@@ -13,7 +14,6 @@ const ListContainer = styled.div`
 const ProductList = styled.section`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   width: 80%;
 `;
 
