@@ -74,10 +74,13 @@ const ItemDetailPrice = styled.p`
 const ItemDetailInstallments = styled.span`
   font-size: 1.0rem;
   color: #808080;
-    
 `
 
 const ItemDetailOptions = styled.p`
+
+`
+
+const ItemDetailButtons = styled.div`
 
 `
 
@@ -96,10 +99,8 @@ const ProductModal = (props) => {
   const [product, setProduct] = useState({});
   const [state, dispatch] = useStore(false);
 
-
   const addProduct = (size) => {
     setProduct({ ...product, size: size, quantity: 1 });
-    console.log(product);
   }
 
   useEffect(() => {
@@ -175,8 +176,10 @@ const ProductModal = (props) => {
 
             <ItemDetailOptions>
               Escolha o tamanho:
-              {btns}
             </ItemDetailOptions>
+            <ItemDetailButtons>
+              {btns}
+            </ItemDetailButtons>
 
             <ButtonAddBag onClick={() => dispatch('ADD_TO_CART', product)}>Adicionar à Sacola</ButtonAddBag>
           </ItemDetailDescription>
