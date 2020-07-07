@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import Loading from "../../components/UI/Loading";
 import EmailIcon from "@material-ui/icons/Email";
@@ -37,14 +36,12 @@ const LoginInput = styled.input`
   width: 100%;
   border: 1px solid #ccca;
   border-radius: 4px;
-  font-size: 23px;
+  font-size: 20px;
+  height: 35px;
   padding: 3px 0px 3px 40px;
   &:focus {
     outline: none;
     border: 2px solid #ccca;
-  }
-  @media (min-width: 1280px) {
-    width: 90%;
   }
 `;
 

@@ -50,6 +50,9 @@ const Container = () => {
       <Route path='/checkout'>
         <Checkout />
       </Route>
+      <Route path="/product/:id">
+        <ProductList />
+      </Route>
       </>
     )
   }

@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import Backdrop from "../Backdrop";
 import classes from "./Modal.module.css";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import styled from "styled-components";
 import { useStore } from "../../../store/store";
 import Search from "../../../containers/Search/";
 import Cart from "../../../containers/Cart";
-import { useSelector, useDispatch } from "react-redux";
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import * as action from "../../../actions/modalHandler";
+// import { useSelector, useDispatch } from "react-redux";
+// import * as action from "../../../actions/modalHandler";
 import Login from "../../../containers/Login";
 import Register from "../../../containers/register";
 import MyAccount from "../../myAccount";
@@ -54,17 +53,14 @@ const ModalBottomBar = styled.div`
     justify-content: space-evenly;
     flex-direction: row;
   }
-  a{
+  a {
     font-size: 1.5rem;
-    color: white; 
+    color: white;
     text-decoration: none;
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
     align-items: center;
-  }
-  a:hover{
-      font-weight: 700;
   }
 `;
 
@@ -133,14 +129,14 @@ const Modal = (props) => {
   }
 
   const checkoutWithAuth = () => {
-      if(isAuth){
-        dispatch("TOGGLE_SHOW");
-      }else{
-          dispatch("TOGGLE_SHOW");
-          dispatch("TOGGLE_SHOW", 'Login');
-          dispatch("FROM_CHECKOUT");
-      }
-  }
+    if (isAuth) {
+      dispatch("TOGGLE_SHOW");
+    } else {
+      dispatch("TOGGLE_SHOW");
+      dispatch("TOGGLE_SHOW", "Login");
+      dispatch("FROM_CHECKOUT");
+    }
+  };
 
   return (
     <>
@@ -158,8 +154,8 @@ const Modal = (props) => {
           <div>
             Subtotal - R$ {totalValue.toFixed(2).replace(".", ",")}{" "}
             <Link to="/checkout" onClick={() => checkoutWithAuth()}>
-              CHECKOUT 
-              <ArrowForwardIcon style={{fontSize: 30}}/>
+              CHECKOUT
+              <ArrowForwardIcon style={{ fontSize: 30 }} />
             </Link>
           </div>
         </ModalBottomBar>

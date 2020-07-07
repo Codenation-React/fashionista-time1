@@ -7,7 +7,6 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { useStore } from "../../store/store";
 import axios from "axios";
 
-
 const LoginContent = styled.div`
   width: 100%;
   height: 100%;
@@ -104,13 +103,11 @@ const LoginError = styled.p`
 `;
 
 const Register = () => {
-
   const [state, dispatch] = useStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-
 
   const changeToRegisterHandler = (type) => {
     dispatch("TOGGLE_SHOW");
@@ -177,25 +174,27 @@ const Register = () => {
         </LoginIcon>
         <LoginP>
           ja possui um Cadastro?{" "}
-          <LoginStrong onClick={() => changeToRegisterHandler("login")}>
+          <LoginStrong onClick={() => changeToRegisterHandler("Login")}>
             Faça Login
           </LoginStrong>{" "}
           agora
         </LoginP>
         {error && (
           <LoginErrorBox>
-            <LoginError>Já existe um usuario registrado com esse E-mail!</LoginError>
+            <LoginError>
+              Já existe um usuario registrado com esse E-mail!
+            </LoginError>
           </LoginErrorBox>
         )}
         <LoginBtn onClick={() => register()}>Sign up</LoginBtn>
       </LoginForm>
     </LoginContent>
-  )
+  );
 
-  if(isLoading){
-    content = <Loading />
+  if (isLoading) {
+    content = <Loading />;
   }
-  
+
   if (state.isAuth) {
     content = (
       <LoginContent>

@@ -3,10 +3,8 @@ import Logo from "../../assets/clothes.svg";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import LocalMallOutlinedIcon from "@material-ui/icons/LocalMallOutlined";
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import Modal from "../../components/UI/Modal";
-import { Link } from 'react-router-dom'
 import { useStore } from "../../store/store";
 // import { useDispatch } from 'react-redux';
 // import * as action from '../../actions/modalHandler';
@@ -108,11 +106,11 @@ const Navbar = () => {
               </LinkModal>
             </ListItem>
             {state.isAuth ? (
-                <ListItem>
+              <ListItem>
                 <LinkModal onClick={() => showModalHandler("user")}>
-                    <AccountCircleOutlinedIcon style={{ fontSize: 35 }} />
+                  <AccountCircleOutlinedIcon style={{ fontSize: 35 }} />
                 </LinkModal>
-                </ListItem>
+              </ListItem>
             ) : (
               <ListItem>
                 <LinkModal

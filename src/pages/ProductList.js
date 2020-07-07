@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import { useStore } from '../store/store'
-import ProductItem from '../components/ProductItem';
-import Loading from '../components/UI/Loading';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import { useStore } from "../store/store";
+import ProductItem from "../components/ProductItem";
+import Loading from "../components/UI/Loading";
 
 const ListContainer = styled.div`
   display: flex;
@@ -22,25 +22,27 @@ const Container = () => {
   const [state, dispatch] = useStore(false);
   const [IsLoading, setIsLoading] = useState(true);
   const fetchCatalog = useCallback(() => {
-    const catalogUrl = 'https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog';
-    const catalogUrl2 = 'https://undefined.netlify.app/api/catalog'
-    axios.get(catalogUrl)
-      .then(response => { 
+    const catalogUrl =
+      "https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog";
+    const catalogUrl2 = "https://undefined.netlify.app/api/catalog";
+    axios
+      .get(catalogUrl)
+      .then((response) => {
         setCatalog(response.data);
-        state.products && setIsLoading(false)
+        state.products && setIsLoading(false);
       })
-      .catch(error => {
-        axios.get(catalogUrl2)
-          .then(response => {
-              setCatalog(response.data);
-              state.products && setIsLoading(false)
-            })
-          .catch(error => {
-            console.log(`There was an error during the fetch: ${error}`);
+      .catch((error) => {
+        axios
+          .get(catalogUrl2)
+          .then((response) => {
+            setCatalog(response.data);
+            state.products && setIsLoading(false);
           })
+          .catch((error) => {
+            console.log(`There was an error during the fetch: ${error}`);
+          });
         console.log(`There was an error during the fetch: ${error}`);
       });
-
   }, []);
 
   useEffect(() => {
@@ -49,20 +51,19 @@ const Container = () => {
 
   useEffect(() => {
     dispatch("INIT_PRODUCTS", catalog);
-  }, [catalog])
+  }, [catalog]);
 
-  const products = useMemo(() => (
-    catalog
-      .map(product => {
-        return <ProductItem key={product.code_color} product={product} />
-      })
-  ), [catalog]);
+  const products = useMemo(
+    () =>
+      catalog.map((product) => {
+        return <ProductItem key={product.code_color} product={product} />;
+      }),
+    [catalog]
+  );
 
   return (
     <ListContainer>
-      <ProductList>
-        { IsLoading ? <Loading/> : products }
-      </ProductList>
+      <ProductList>{IsLoading ? <Loading /> : products}</ProductList>
     </ListContainer>
   );
 };

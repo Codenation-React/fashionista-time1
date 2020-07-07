@@ -10,7 +10,9 @@ const removePersistLogin = () => {
 
 const loadAuth = () => {
   const authData = JSON.parse(localStorage.getItem("authData"));
-  return authData ?? { isAuth: false, userID: "", idToken: "", fromCheckout: false };
+  return (
+    authData ?? { isAuth: false, userID: "", idToken: "", fromCheckout: false }
+  );
 };
 
 const configureStore = () => {
@@ -34,8 +36,8 @@ const configureStore = () => {
       return authData;
     },
     FROM_CHECKOUT: (state, value) => {
-        return { ...state, fromCheckout: true };
-    }
+      return { ...state, fromCheckout: true };
+    },
   };
   initStore(actions, loadAuth());
 };

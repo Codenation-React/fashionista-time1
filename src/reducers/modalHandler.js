@@ -1,16 +1,16 @@
-import { TOGGLE_SHOW } from '../constants/actionTypes';
+import { TOGGLE_SHOW } from "../constants/actionTypes";
 
-const initialState = { show: false, Navtype: '' };
+const initialState = { show: false, Navtype: "" };
 
 const toggleShow = (state, value) => {
-    console.log(value);
-    return { ...state, show: !state.show, Navtype: value }
-}
+  console.log(value);
+  return { ...state, show: !state.show, Navtype: value };
+};
 
 export default function modalHandlerReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case TOGGLE_SHOW:
-        return toggleShow(state, action.value);
+      return toggleShow(state, action.value);
     default:
       return state;
   }
