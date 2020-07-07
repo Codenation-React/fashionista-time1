@@ -10,7 +10,7 @@ const ListItem = styled.li`
   margin: 15px;
   width: 235px;
   transition: transform 0.35s ease-out;
-  a {
+  & > a {
     text-decoration: none;
     color: #303030;
   }
@@ -63,6 +63,7 @@ const PriceItem = styled.a`
 const PriceItemOld = styled.a`
   font-size: 1.5rem;
   color: #808080;
+  margin-right: 7px;
   text-decoration: solid line-through #808080;
 `;
 
