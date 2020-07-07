@@ -9,6 +9,10 @@ const ListItem = styled.li`
   list-style-type: none;
   margin: 15px;
   width: 235px;
+  a {
+    text-decoration: none;
+    color: #303030;
+  }
 `;
 const ImgItem = styled.div`
   position: relative;
