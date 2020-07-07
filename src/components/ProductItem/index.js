@@ -1,7 +1,9 @@
 import React from "react";
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import notFoundLogo from '../../assets/notfound.png';
+import { formatText } from '../../shared/utility';
 
 const ListItem = styled.li`
   list-style-type: none;
@@ -60,17 +62,24 @@ const ProductItem = ({ product }) => {
 
   const imageItem = image || notFoundLogo;
 
+  const newName = formatText(name);
+
   return (
     <ListItem>
-      <ImgItem>
-        <img src={imageItem} alt={name} />
-        {on_sale &&
-          (<DiscountItem> -{discount_percentage} OFF</DiscountItem>)}
-      </ImgItem>
+      <Link to={{
+        pathname: `/product/${newName}`,
+        state: product,
+      }}>
+        <ImgItem>
+          <img src={imageItem} alt={name} />
+          {on_sale &&
+            (<DiscountItem> -{discount_percentage} OFF</DiscountItem>)}
+        </ImgItem>
 
-      <DescItem>
-        <TitleItem>{name}</TitleItem>
-      </DescItem>
+        <DescItem>
+          <TitleItem>{name}</TitleItem>
+        </DescItem>
+      </Link>
 
       <DescPriceItem>
         {on_sale &&

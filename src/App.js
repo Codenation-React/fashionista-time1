@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom';
 
 import ProductList from './pages/ProductList';
+import ProductModal from './pages/ProductModal';
 
 const App = styled.div`
   height: 100%;
@@ -28,9 +29,8 @@ const Container = () => {
       <Navbar />
         <App className='App'>
           <Switch>
-            <Route path='/'>
-              <ProductList />
-            </Route>
+            <Route exact path="/" component={ProductList} />
+            <Route path="/product/:id" component={ProductModal} />
           </Switch>
         </App>
       </Router>
