@@ -32,6 +32,9 @@ const Container = () => {
     <Route exact path='/'>
       <ProductList />
     </Route>
+    <Route path="/product/:id">
+      <ProductList />
+    </Route>
     <Redirect to="/"/>
     </>
   )
@@ -46,6 +49,9 @@ const Container = () => {
       </Route>
       <Route path='/checkout'>
         <Checkout />
+      </Route>
+      <Route path="/product/:id">
+        <ProductList />
       </Route>
       </>
     )
