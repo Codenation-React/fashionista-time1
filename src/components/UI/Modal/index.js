@@ -42,6 +42,8 @@ const ModalBottomBar = styled.div`
   display: ${(props) => (props.show ? "block" : "none")};
   height: 50px;
   background: #212529;
+  margin-top: auto;
+  
   div {
     font-size: 1.5rem;
     color: white;
