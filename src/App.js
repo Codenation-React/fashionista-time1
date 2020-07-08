@@ -30,16 +30,16 @@ const Container = () => {
 
   let routes = (
     <Switch>
+      <Route exact path="/product/:id" component={ProductModal} />
       <Route exact path='/' component={ProductList} />
-      <Route path="/product/:id" component={ProductModal} />
       <Redirect to="/"/>
     </Switch>
   )
   if(state.isAuth){
     routes = (
       <Switch>
-        <Route exact path='/' component={ProductList} />
         <Route path="/product/:id" component={ProductModal} />
+        <Route exact path='/' component={ProductList} />
         <Route path='/orders' component={Orders}/>
         <Route path='/checkout'component={Checkout} />
         <Redirect to="/"/>

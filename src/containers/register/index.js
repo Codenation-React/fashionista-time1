@@ -89,6 +89,7 @@ const LoginSuccess = styled.div`
 
 const SuccessParagraph = styled.p`
   font-size: 30px;
+  white-space: nowrap;
 `;
 
 const LoginErrorBox = styled.div`

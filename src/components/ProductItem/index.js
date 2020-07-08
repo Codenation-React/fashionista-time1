@@ -83,10 +83,7 @@ const ProductItem = (props) => {
 
   return (
     <ListItem>
-      <Link to={{
-        pathname: `/product/${newName}`,
-        state: props.product,
-      }}>
+      <Link to={`/product/${newName}`}>
         <ImgItem>
           <img src={imageItem} alt={name} />
           {on_sale &&

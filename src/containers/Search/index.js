@@ -5,7 +5,7 @@ import { useStore } from "../../store/store";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SentimentDissatisfiedOutlinedIcon from "@material-ui/icons/SentimentDissatisfiedOutlined";
 import { Link } from "react-router-dom";
-import { formatText } from '../../shared/utility';
+import { formatText } from "../../shared/utility";
 
 const NoResultFound = styled.span`
   margin: auto 0;
@@ -32,7 +32,7 @@ const ProductImage = styled.img`
 const ProductImageDiv = styled.div`
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   height: 100%;
   margin-right: 20px;
   width: 50%;
@@ -146,6 +146,17 @@ const NewSearchDiv = styled.div`
   color: #ccc;
 `;
 
+const DiscountItem = styled.span`
+  margin-bottom: -25px;
+  margin-left: 45%;
+  background-color: #303030;
+  padding: 0.2rem 0.6rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+`;
+
 const Search = () => {
   const [{ products }, dispatch] = useStore();
   const [search, setSearch] = useState("");
@@ -190,6 +201,9 @@ const Search = () => {
                 src={product.image ? product.image : Notfound}
                 alt="product"
               />
+              {product.on_sale && (
+                <DiscountItem> -{product.discount_percentage} OFF</DiscountItem>
+              )}
             </ProductImageDiv>
             <StyledName>{product.name}</StyledName>
             <ProductPrice>
