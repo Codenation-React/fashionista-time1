@@ -92,7 +92,7 @@ const ButtonAddBag = styled.button`
 
 const ProductModal = (props) => {
   const [product, setProduct] = useState({});
-  const [state, dispatch] = useStore(false);
+  const [{ cartItems }, dispatch] = useStore(false);
   const products = useInitProducts();
   
   const addProduct = (size) => {
@@ -107,6 +107,20 @@ const ProductModal = (props) => {
       })
     );
   }, [products, props.match.params.id]);
+
+  let addToCart = () => {
+    const validProduct =
+    cartItems &&
+    cartItems.filter(
+      (item) => item.code_color === product.code_color && item.size === product.size
+    )[0];
+
+    if (validProduct)
+      dispatch("INCREMENT_QUANTITY", { code_color: product.code_color, size: product.size });
+    else
+      dispatch("ADD_TO_CART", product);
+      
+  }
 
   let content = <Loading />;
 
@@ -160,7 +174,7 @@ const ProductModal = (props) => {
               {btns}
             </ItemDetailButtons>
 
-            <ButtonAddBag onClick={() => dispatch("ADD_TO_CART", product)}>
+            <ButtonAddBag onClick={addToCart}>
               Adicionar à Sacola
             </ButtonAddBag>
           </ItemDetailDescription>
