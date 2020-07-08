@@ -11,56 +11,7 @@ const persistCart = (cartItems) => {
 const loadCart = () => {
   const cartItems = JSON.parse(localStorage.getItem("saleCart"));
   return (
-    cartItems ?? [
-      {
-        name: "REGATA ALCINHA FOLK",
-        style: "20002570",
-        code_color: "20002570_614",
-        color_slug: "preto",
-        color: "PRETO",
-        on_sale: false,
-        regular_price: "R$ 99,90",
-        actual_price: "R$ 99,90",
-        discount_percentage: "",
-        installments: "3x R$ 33,30",
-        image:
-          "https://viniciusvinna.netlify.app/assets/api-fashionista/20002570_002_catalog_1.jpg",
-        size: "P",
-        quantity: 1,
-      },
-      {
-        name: "VESTIDO TRANSPASSE BOW",
-        style: "20002605",
-        code_color: "20002605_613",
-        color_slug: "tapecaria",
-        color: "TAPEÇARIA",
-        on_sale: false,
-        regular_price: "R$ 199,90",
-        actual_price: "R$ 199,90",
-        discount_percentage: "",
-        installments: "3x R$ 66,63",
-        image:
-          "https://viniciusvinna.netlify.app/assets/api-fashionista/20002605_615_catalog_1.jpg",
-        size: "M",
-        quantity: 2,
-      },
-      {
-        name: "VESTIDO TRANSPASSE BOW",
-        style: "20002605",
-        code_color: "20002605_613",
-        color_slug: "tapecaria",
-        color: "TAPEÇARIA",
-        on_sale: false,
-        regular_price: "R$ 199,90",
-        actual_price: "R$ 199,90",
-        discount_percentage: "",
-        installments: "3x R$ 66,63",
-        image:
-          "https://viniciusvinna.netlify.app/assets/api-fashionista/20002605_615_catalog_1.jpg",
-        size: "P",
-        quantity: 2,
-      },
-    ]
+    cartItems ?? []
   );
 };
 
